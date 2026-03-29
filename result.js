@@ -1,4 +1,4 @@
-function checkResult() {
+alert("result.js connected");function checkResult() {
   let name = document.getElementById("studentName").value.trim().toLowerCase();
   let email = document.getElementById("studentEmail").value.trim().toLowerCase();
   let resultBox = document.getElementById("resultBox");
