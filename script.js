@@ -1,4 +1,6 @@
-let students = JSON.parse(localStorage.getItem("students")) || [];
+
+function addStudent() {
+}let students = JSON.parse(localStorage.getItem("students")) || [];
 let editIndex = -1;
 
 function saveToLocalStorage() {
