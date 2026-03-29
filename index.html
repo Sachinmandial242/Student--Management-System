@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Student Management and Result System</h1>
+        <p class="subtitle">Manage student details, marks and results efficiently</p>
+
+        <input type="text" id="name" placeholder="Enter Student Name">
+        <input type="text" id="roll" placeholder="Enter Roll Number">
+        <input type="text" id="course" placeholder="Enter Course">
+        <input type="email" id="email" placeholder="Enter Email">
+
+        <input type="number" id="sub1" placeholder="Enter Subject 1 Marks">
+        <input type="number" id="sub2" placeholder="Enter Subject 2 Marks">
+        <input type="number" id="sub3" placeholder="Enter Subject 3 Marks">
+
+        <button onclick="addStudent()">Save Student</button>
+        <button onclick="clearInputs()">Reset Form</button>
+        <button onclick="logout()">Logout</button>
+        <button onclick="window.location.href='result.html'">
+            Student Result Page
+        </button>
+
+        <p id="totalStudents">Total Students: 0</p>
+
+        <input type="text" id="search" placeholder="Search by name" onkeyup="searchStudent()">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll No</th>
+                    <th>Course</th>
+                    <th>Email</th>
+                    <th>Sub1</th>
+                    <th>Sub2</th>
+                    <th>Sub3</th>
+                    <th>Total</th>
+                    <th>Percentage</th>
+                    <th>Grade</th>
+                    <th>Result</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody id="studentTableBody"></tbody>
+        </table>
+        <div class="stats">
+            <p id="totalStudents">Total Students: 0</p>
+            <p id="passedStudents">Passed Students: 0</p>
+            <p id="failedStudents">Failed Students: 0</p>
+        </div>
+    </div>
+
+    <script>
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            window.location.href = "login.html";
+        }
+    </script>
+    <script src="script.js"></script>
+    <footer>
+        <p>Developed by Sachin Mandial and Udhay Chauhan | BCA Project</p>
+    </footer>
+</body>
+
+</html>
