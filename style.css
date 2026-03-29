@@ -1,0 +1,227 @@
+body {
+    body {
+        font-family: Arial, sans-serif;
+        background: #eef2f7;
+        padding: 20px;
+        margin: 0;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #1f3c88;
+        margin-bottom: 20px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #bbb;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    button {
+        margin-top: 12px;
+        margin-right: 8px;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 5px;
+        background: #1f3c88;
+        color: white;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #162d66;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+    }
+
+    th {
+        background: #1f3c88;
+        color: white;
+    }
+
+    #totalStudents {
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+    font-family: Arial,
+    sans-serif;
+    background: #eef2f7;
+    padding: 20px;
+    margin: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #1f3c88;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    margin-top: 12px;
+    margin-right: 8px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    background: #1f3c88;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #162d66;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #1f3c88;
+    color: white;
+}
+
+#totalStudents {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+button {
+    margin-top: 12px;
+    margin-right: 8px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #1f3c88;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #162d66;
+}
+
+.delete-btn {
+    background: #c62828;
+}
+
+.edit-btn {
+    background: #ef6c00;
+}
+
+.logout-btn {
+    background: #6a1b9a;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.stats p {
+    background: #f4f6fb;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.home-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.home-buttons button {
+    min-width: 180px;
+}
+
+.result-card {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f4f6fb;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.result-card h2 {
+    margin-top: 0;
+    color: #1f3c88;
+}
