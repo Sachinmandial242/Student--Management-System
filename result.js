@@ -7,25 +7,24 @@ function checkResult() {
 
   let student = students.find(function(s) {
     return (
-      s.name.trim().toLowerCase() === name &&
-      s.email.trim().toLowerCase() === email
+      s.name.toLowerCase() === name &&
+      s.email.toLowerCase() === email
     );
   });
 
   if (student) {
     resultBox.innerHTML = `
-      <div class="result-card">
-        <h2>Result Found</h2>
-        <p><b>Name:</b> ${student.name}</p>
-        <p><b>Roll No:</b> ${student.roll}</p>
-        <p><b>Email:</b> ${student.email}</p>
-        <p><b>Total:</b> ${student.total}</p>
-        <p><b>Percentage:</b> ${student.percentage.toFixed(2)}%</p>
-        <p><b>Grade:</b> ${student.grade}</p>
-        <p><b>Result:</b> ${student.result}</p>
-      </div>
+      <h2>Result Found</h2>
+      <p><b>Name:</b> ${student.name}</p>
+      <p><b>Roll No:</b> ${student.roll}</p>
+      <p><b>Course:</b> ${student.course}</p>
+      <p><b>Email:</b> ${student.email}</p>
+      <p><b>Total:</b> ${student.total}</p>
+      <p><b>Percentage:</b> ${student.percentage.toFixed(2)}%</p>
+      <p><b>Grade:</b> ${student.grade}</p>
+      <p><b>Result:</b> ${student.result}</p>
     `;
   } else {
-    resultBox.innerHTML = "<p style='color:red;'>No record found</p>";
+    resultBox.innerHTML = `<p style="color:red;">No record found</p>`;
   }
 }
