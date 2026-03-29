@@ -69,6 +69,25 @@ function addStudent() {
     let sub1 = document.getElementById("sub1").value.trim();
     let sub2 = document.getElementById("sub2").value.trim();
     let sub3 = document.getElementById("sub3").value.trim();
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+
+let studentData = {
+  name: name,
+  roll: roll,
+  course: course,
+  email: email,
+  sub1: sub1,
+  sub2: sub2,
+  sub3: sub3,
+  total: sub1 + sub2 + sub3,
+  percentage: ((sub1 + sub2 + sub3) / 300) * 100,
+  grade: "A", // temporarily
+  result: ((sub1 + sub2 + sub3) / 300) * 100 >= 40 ? "Pass" : "Fail"
+};
+
+students.push(studentData);
+
+localStorage.setItem("students", JSON.stringify(students));
 
     if (!name || !roll || !course || !email || !sub1 || !sub2 || !sub3) {
         alert("Please fill all fields");
