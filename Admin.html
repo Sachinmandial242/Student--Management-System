@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Portal</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body onload="checkAdminLogin(); displayStudents();">
+    <div class="container">
+        <div class="top-bar">
+            <h1>Admin Portal</h1>
+            <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+        </div>
+
+        <h2>Add / Edit Student</h2>
+
+        <form id="studentForm">
+            <input type="hidden" id="editIndex" />
+
+            <input type="text" id="name" placeholder="Student Name" required />
+            <input type="text" id="fatherName" placeholder="Father Name" required />
+            <input type="text" id="motherName" placeholder="Mother Name" required />
+            <input type="email" id="gmail" placeholder="Student Gmail" required />
+            <input type="text" id="rollNo" placeholder="Roll Number" required />
+
+            <input type="number" id="sub1" placeholder="Maths Marks" required />
+            <input type="number" id="sub2" placeholder="English Marks" required />
+            <input type="number" id="sub3" placeholder="Computer Marks" required />
+            <input type="number" id="sub4" placeholder="Science Marks" required />
+            <input type="number" id="sub5" placeholder="Hindi Marks" required />
+
+            <button type="submit">Save Student</button>
+        </form>
+
+        <h2>All Students</h2>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Father</th>
+                        <th>Mother</th>
+                        <th>Gmail</th>
+                        <th>Roll No</th>
+                        <th>Maths</th>
+                        <th>English</th>
+                        <th>Computer</th>
+                        <th>Science</th>
+                        <th>Hindi</th>
+                        <th>Total</th>
+                        <th>Percentage</th>
+                        <th>Grade</th>
+                        <th>Result</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

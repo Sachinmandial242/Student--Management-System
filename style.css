@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.small-box {
+    max-width: 450px;
+    margin-top: 40px;
+}
+
+h1,
+h2 {
+    margin-bottom: 15px;
+    color: #222;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.link-btn {
+    display: inline-block;
+    text-decoration: none;
+    background: #16a34a;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.link-btn:hover {
+    background: #15803d;
+}
+
+.note {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.logout-btn {
+    width: auto;
+    padding: 10px 18px;
+    background: #dc2626;
+}
+
+.logout-btn:hover {
+    background: #b91c1c;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1000px;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+table th {
+    background: #2563eb;
+    color: white;
+}
+
+.action-btn {
+    width: auto;
+    padding: 8px 12px;
+    margin: 2px;
+    font-size: 13px;
+}
+
+.edit-btn {
+    background: #f59e0b;
+}
+
+.edit-btn:hover {
+    background: #d97706;
+}
+
+.delete-btn {
+    background: #dc2626;
+}
+
+.delete-btn:hover {
+    background: #b91c1c;
+}
+
+.result-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8fafc;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    min-height: 50px;
+}
+
+.result-box p {
+    margin-bottom: 8px;
+}
+
+hr {
+    margin: 20px 0;
+}
