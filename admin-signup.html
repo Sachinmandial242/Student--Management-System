@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Signup</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container small-box">
+        <h1>Admin Signup</h1>
+
+        <input type="text" id="signupName" placeholder="Enter Admin Name" />
+        <input type="email" id="signupEmail" placeholder="Enter Admin Email" />
+        <input type="text" id="signupUsername" placeholder="Create Username" />
+        <input type="password" id="signupPassword" placeholder="Create Password" />
+        <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" />
+
+        <button onclick="adminSignup()">Create Admin Account</button>
+
+        <p class="note">Already have an account?</p>
+        <a href="admin-login.html" class="link-btn">Go to Admin Login</a>
+
+        <hr />
+        <a href="index.html" class="link-btn">Go to Student Portal</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
