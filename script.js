@@ -45,6 +45,7 @@ function adminSignup() {
 }
 
 // ---------------- ADMIN LOGIN ----------------
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 function adminLogin() {
   const username = document.getElementById("adminUsername").value.trim();
   const password = document.getElementById("adminPassword").value.trim();
