@@ -1,17 +1,24 @@
 // ---------------- ADMIN SIGNUP ----------------
 import { auth } from "./firebase-config.js";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-function adminSignup() {
-  const name = document.getElementById("signupName").value.trim();
+window.adminSignup = async function () {
   const email = document.getElementById("signupEmail").value.trim();
-  const username = document.getElementById("signupUsername").value.trim();
   const password = document.getElementById("signupPassword").value.trim();
   const confirmPassword = document.getElementById("signupConfirmPassword").value.trim();
 
-  if (!name || !email || !username || !password || !confirmPassword) {
-    alert("Please fill all fields");
+  if (password !== confirmPassword) {
+    alert("Passwords do not match");
     return;
   }
+
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    alert("Signup successful");
+    window.location.href = "admin-login.html";
+  } catch (error) {
+    alert(error.message);
+  }
+};
 
   if (password !== confirmPassword) {
     alert("Password and Confirm Password do not match");
