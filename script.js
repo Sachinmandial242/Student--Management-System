@@ -1,4 +1,5 @@
 // ---------------- ADMIN SIGNUP ----------------
+import { db } from "./firebase-config.js";
 function adminSignup() {
   const name = document.getElementById("signupName").value.trim();
   const email = document.getElementById("signupEmail").value.trim();
