@@ -20,11 +20,11 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 // ---------------- SUBJECT NAMES ----------------
-const subject1Name = "English";
-const subject2Name = "Hindi";
-const subject3Name = "Maths";
-const subject4Name = "Computer";
-const subject5Name = "Science";
+const subject1Name = "Maths";
+const subject2Name = "English";
+const subject3Name = "Computer";
+const subject4Name = "Science";
+const subject5Name = "Hindi";
 
 // ---------------- ADMIN SIGNUP ----------------
 window.adminSignup = async function () {
