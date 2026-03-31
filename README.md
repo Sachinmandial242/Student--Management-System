@@ -52,7 +52,7 @@ This project allows an admin to manage student data and students to check their 
 
 ---
 
-## 🔐 Admin Login Details
+## 🔐 admin Login Details
 
 > ⚠️ (For demo purpose only)
 
