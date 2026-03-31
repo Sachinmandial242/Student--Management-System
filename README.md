@@ -52,14 +52,26 @@ This project allows an admin to manage student data and students to check their 
 
 ---
 
-## 🔐 admin Login Details
+## 🔐 Admin Signup & Login
 
-> ⚠️ (For demo purpose only)
+This system allows creation of new admin accounts.
 
-- Username: `admin`
-- Password: `1234`
+### 📝 Admin Signup
+- Go to **Admin Signup page**
+- Enter:
+  - Name
+  - Email
+  - Username
+  - Password
+- Click on **Create Account**
+- Account will be saved in browser storage
 
----
+### 🔑 Admin Login
+- Go to **Admin Login page**
+- Enter your created:
+  - Username
+  - Password
+- Click **Login**
+- You will be redirected to Admin Dashboard
 
-## 📂 Project Structure
-
+> ⚠️ Note: This project uses LocalStorage, so admin accounts are stored only in the browser.
