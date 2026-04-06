@@ -195,7 +195,7 @@ if (studentForm) {
       !sub4El ||
       !sub5El
     ) {
-      alert("Student form not found properly");
+      alert("student form not found properly");
       return;
     }
 
