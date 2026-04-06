@@ -26,19 +26,24 @@ const subject3Name = "Computer";
 const subject4Name = "Science";
 const subject5Name = "Hindi";
 
+// ---------------- HELPER ----------------
+function getEl(id) {
+  return document.getElementById(id);
+}
+
 // ---------------- ADMIN SIGNUP ----------------
 window.adminSignup = async function () {
-  const nameEl = document.getElementById("signupName");
-  const emailEl = document.getElementById("signupEmail");
-  const passwordEl = document.getElementById("signupPassword");
-  const confirmPasswordEl = document.getElementById("signupConfirmPassword");
+  const nameEl = getEl("signupName");
+  const emailEl = getEl("signupEmail");
+  const passwordEl = getEl("signupPassword");
+  const confirmPasswordEl = getEl("signupConfirmPassword");
 
-  if (!emailEl || !passwordEl || !confirmPasswordEl) {
+  if (!nameEl || !emailEl || !passwordEl || !confirmPasswordEl) {
     alert("Signup form not found");
     return;
   }
 
-  const name = nameEl ? nameEl.value.trim() : "";
+  const name = nameEl.value.trim();
   const email = emailEl.value.trim();
   const password = passwordEl.value.trim();
   const confirmPassword = confirmPasswordEl.value.trim();
@@ -53,19 +58,32 @@ window.adminSignup = async function () {
     return;
   }
 
+  if (password.length < 6) {
+    alert("Password should be at least 6 characters");
+    return;
+  }
+
   try {
     await createUserWithEmailAndPassword(auth, email, password);
     alert("Admin account created successfully");
     window.location.href = "admin-login.html";
   } catch (error) {
-    alert(error.message);
+    if (error.code === "auth/email-already-in-use") {
+      alert("This email is already registered. Please login instead.");
+    } else if (error.code === "auth/invalid-email") {
+      alert("Please enter a valid email address.");
+    } else if (error.code === "auth/weak-password") {
+      alert("Password should be at least 6 characters.");
+    } else {
+      alert("Signup failed: " + error.message);
+    }
   }
 };
 
 // ---------------- ADMIN LOGIN ----------------
 window.adminLogin = async function () {
-  const emailEl = document.getElementById("adminEmail");
-  const passwordEl = document.getElementById("adminPassword");
+  const emailEl = getEl("adminEmail");
+  const passwordEl = getEl("adminPassword");
 
   if (!emailEl || !passwordEl) {
     alert("Login form not found");
@@ -85,7 +103,17 @@ window.adminLogin = async function () {
     alert("Login successful");
     window.location.href = "admin.html";
   } catch (error) {
-    alert("Login failed: " + error.message);
+    if (
+      error.code === "auth/invalid-credential" ||
+      error.code === "auth/wrong-password" ||
+      error.code === "auth/user-not-found"
+    ) {
+      alert("Wrong email or password.");
+    } else if (error.code === "auth/invalid-email") {
+      alert("Please enter a valid email address.");
+    } else {
+      alert("Login failed: " + error.message);
+    }
   }
 };
 
@@ -93,6 +121,7 @@ window.adminLogin = async function () {
 window.logoutAdmin = async function () {
   try {
     await signOut(auth);
+    alert("Logged out successfully");
     window.location.href = "admin-login.html";
   } catch (error) {
     alert("Logout failed: " + error.message);
@@ -102,15 +131,15 @@ window.logoutAdmin = async function () {
 // ---------------- CHECK ADMIN LOGIN ----------------
 window.checkAdminLogin = function () {
   onAuthStateChanged(auth, (user) => {
-    const isAdminPage = window.location.pathname.includes("admin.html");
+    const currentPage = window.location.pathname;
 
-    if (isAdminPage && !user) {
-      alert("Please login first");
-      window.location.href = "admin-login.html";
-    }
-
-    if (isAdminPage && user) {
-      displayStudents();
+    if (currentPage.includes("admin.html")) {
+      if (!user) {
+        alert("Please login first");
+        window.location.href = "admin-login.html";
+      } else {
+        displayStudents();
+      }
     }
   });
 };
@@ -135,25 +164,53 @@ function getGrade(percentage, result) {
 }
 
 // ---------------- SAVE / UPDATE STUDENT ----------------
-const studentForm = document.getElementById("studentForm");
+const studentForm = getEl("studentForm");
 
 if (studentForm) {
   studentForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const editId = document.getElementById("editId").value.trim();
+    const editIdEl = getEl("editId");
+    const nameEl = getEl("name");
+    const fatherNameEl = getEl("fatherName");
+    const motherNameEl = getEl("motherName");
+    const gmailEl = getEl("gmail");
+    const rollNoEl = getEl("rollNo");
+    const sub1El = getEl("sub1");
+    const sub2El = getEl("sub2");
+    const sub3El = getEl("sub3");
+    const sub4El = getEl("sub4");
+    const sub5El = getEl("sub5");
 
-    const name = document.getElementById("name").value.trim();
-    const fatherName = document.getElementById("fatherName").value.trim();
-    const motherName = document.getElementById("motherName").value.trim();
-    const gmail = document.getElementById("gmail").value.trim();
-    const rollNo = document.getElementById("rollNo").value.trim();
+    if (
+      !editIdEl ||
+      !nameEl ||
+      !fatherNameEl ||
+      !motherNameEl ||
+      !gmailEl ||
+      !rollNoEl ||
+      !sub1El ||
+      !sub2El ||
+      !sub3El ||
+      !sub4El ||
+      !sub5El
+    ) {
+      alert("Student form not found properly");
+      return;
+    }
 
-    const sub1 = Number(document.getElementById("sub1").value);
-    const sub2 = Number(document.getElementById("sub2").value);
-    const sub3 = Number(document.getElementById("sub3").value);
-    const sub4 = Number(document.getElementById("sub4").value);
-    const sub5 = Number(document.getElementById("sub5").value);
+    const editId = editIdEl.value.trim();
+    const name = nameEl.value.trim();
+    const fatherName = fatherNameEl.value.trim();
+    const motherName = motherNameEl.value.trim();
+    const gmail = gmailEl.value.trim();
+    const rollNo = rollNoEl.value.trim();
+
+    const sub1 = Number(sub1El.value);
+    const sub2 = Number(sub2El.value);
+    const sub3 = Number(sub3El.value);
+    const sub4 = Number(sub4El.value);
+    const sub5 = Number(sub5El.value);
 
     if (
       !name ||
@@ -168,6 +225,17 @@ if (studentForm) {
       isNaN(sub5)
     ) {
       alert("Please fill all fields properly");
+      return;
+    }
+
+    if (
+      sub1 < 0 || sub1 > 100 ||
+      sub2 < 0 || sub2 > 100 ||
+      sub3 < 0 || sub3 > 100 ||
+      sub4 < 0 || sub4 > 100 ||
+      sub5 < 0 || sub5 > 100
+    ) {
+      alert("Marks should be between 0 and 100");
       return;
     }
 
@@ -216,7 +284,7 @@ if (studentForm) {
       }
 
       studentForm.reset();
-      document.getElementById("editId").value = "";
+      editIdEl.value = "";
       displayStudents();
     } catch (error) {
       alert("Error: " + error.message);
@@ -226,7 +294,7 @@ if (studentForm) {
 
 // ---------------- DISPLAY STUDENTS ----------------
 window.displayStudents = async function () {
-  const tableBody = document.getElementById("studentTableBody");
+  const tableBody = getEl("studentTableBody");
   if (!tableBody) return;
 
   tableBody.innerHTML = "";
@@ -279,17 +347,17 @@ window.editStudent = async function (id) {
 
     const student = docSnap.data();
 
-    document.getElementById("editId").value = id;
-    document.getElementById("name").value = student.name || "";
-    document.getElementById("fatherName").value = student.fatherName || "";
-    document.getElementById("motherName").value = student.motherName || "";
-    document.getElementById("gmail").value = student.gmail || "";
-    document.getElementById("rollNo").value = student.rollNo || "";
-    document.getElementById("sub1").value = student.sub1 ?? "";
-    document.getElementById("sub2").value = student.sub2 ?? "";
-    document.getElementById("sub3").value = student.sub3 ?? "";
-    document.getElementById("sub4").value = student.sub4 ?? "";
-    document.getElementById("sub5").value = student.sub5 ?? "";
+    getEl("editId").value = id;
+    getEl("name").value = student.name || "";
+    getEl("fatherName").value = student.fatherName || "";
+    getEl("motherName").value = student.motherName || "";
+    getEl("gmail").value = student.gmail || "";
+    getEl("rollNo").value = student.rollNo || "";
+    getEl("sub1").value = student.sub1 ?? "";
+    getEl("sub2").value = student.sub2 ?? "";
+    getEl("sub3").value = student.sub3 ?? "";
+    getEl("sub4").value = student.sub4 ?? "";
+    getEl("sub5").value = student.sub5 ?? "";
 
     window.scrollTo({ top: 0, behavior: "smooth" });
   } catch (error) {
@@ -313,8 +381,8 @@ window.deleteStudent = async function (id) {
 
 // ---------------- STUDENT RESULT SEARCH ----------------
 window.searchResult = async function () {
-  const rollNoEl = document.getElementById("studentRollNo");
-  const gmailEl = document.getElementById("studentGmail");
+  const rollNoEl = getEl("studentRollNo");
+  const gmailEl = getEl("studentGmail");
 
   if (!rollNoEl || !gmailEl) {
     alert("Student search form not found");
@@ -465,3 +533,8 @@ window.searchResult = async function () {
     alert("Search failed: " + error.message);
   }
 };
+
+// ---------------- RUN PAGE CHECKS ----------------
+document.addEventListener("DOMContentLoaded", () => {
+  checkAdminLogin();
+});
