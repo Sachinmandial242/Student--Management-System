@@ -1,32 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Login</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-    <div class="container small-box">
-        <h1>Admin Login</h1>
+  <div class="container small-box">
+    <h1>Admin Login</h1>
 
-        <input type="text" id="adminUsername" placeholder="Enter admin username" />
-        <input type="password" id="adminPassword" placeholder="Enter admin password" />
-       <button type="button" onclick="adminLogin()">Login</button>
-        <p class="note">New admin?</p>
+    <input type="email" id="adminEmail" placeholder="Enter Admin Email" />
+    <input type="password" id="adminPassword" placeholder="Enter Password" />
+
+    <button onclick="adminLogin()">Login</button>
+
+    <p>New admin?</p>
     <a href="admin-signup.html" class="link-btn">Create Admin Account</a>
 
+    <hr>
 
-
-        <hr />
-        <p>Student ho?</p>
+    <p>Student ho?</p>
     <a href="index.html" class="link-btn">Go to Student Portal</a>
-    </div>
+  </div>
 
-    <script src="script.js"></script>
-    <script type="module" src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
-
 </html>
