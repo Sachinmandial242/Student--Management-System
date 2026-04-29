@@ -309,6 +309,7 @@ if (studentForm) {
         }
 
         await addDoc(studentsCollectionRef, studentData);
+        await addDoc(collection(db, "students"), studentData);
         alert("Student added successfully");
       }
 
