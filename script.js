@@ -183,6 +183,27 @@ function getAdminStudentDoc(id) {
 
   return doc(db, "admins", user.uid, "students", id);
 }
+function getAdminStudentsCollection() {
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Please login first");
+    return null;
+  }
+
+  return collection(db, "admins", user.uid, "students");
+}
+
+function getAdminStudentDoc(id) {
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Please login first");
+    return null;
+  }
+
+  return doc(db, "admins", user.uid, "students", id);
+}
 
 // ---------------- SAVE / UPDATE STUDENT ----------------
 const studentForm = getEl("studentForm");
