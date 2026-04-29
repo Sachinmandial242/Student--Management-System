@@ -162,6 +162,27 @@ function getGrade(percentage, result) {
   if (percentage >= 33) return "E";
   return "F";
 }
+function getAdminStudentsCollection() {
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Please login first");
+    return null;
+  }
+
+  return collection(db, "admins", user.uid, "students");
+}
+
+function getAdminStudentDoc(id) {
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Please login first");
+    return null;
+  }
+
+  return doc(db, "admins", user.uid, "students", id);
+}
 
 // ---------------- SAVE / UPDATE STUDENT ----------------
 const studentForm = getEl("studentForm");
@@ -263,13 +284,20 @@ if (studentForm) {
 
     try {
       if (editId) {
-        await updateDoc(doc(db, "students", editId), studentData);
+       const studentDocRef = getAdminStudentDoc(editId);
+if (!studentDocRef) return;
+
+await updateDoc(studentDocRef, studentData);
         alert("Student updated successfully");
       } else {
-        const duplicateQuery = query(
-          collection(db, "students"),
-          where("rollNo", "==", rollNo),
-          where("gmail", "==", gmail)
+       const studentsCollectionRef = getAdminStudentsCollection();
+if (!studentsCollectionRef) return;
+
+const duplicateQuery = query(
+  studentsCollectionRef,
+  where("rollNo", "==", rollNo),
+  where("gmail", "==", gmail)
+);
         );
 
         const duplicateSnapshot = await getDocs(duplicateQuery);
