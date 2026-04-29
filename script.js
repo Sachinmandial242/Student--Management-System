@@ -31,6 +31,29 @@ function getEl(id) {
   return document.getElementById(id);
 }
 
+// ---------------- ADMIN DATA PATH HELPERS ----------------
+function getAdminStudentsCollection() {
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Please login first");
+    return null;
+  }
+
+  return collection(db, "admins", user.uid, "students");
+}
+
+function getAdminStudentDoc(id) {
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Please login first");
+    return null;
+  }
+
+  return doc(db, "admins", user.uid, "students", id);
+}
+
 // ---------------- ADMIN SIGNUP ----------------
 window.adminSignup = async function () {
   const nameEl = getEl("signupName");
@@ -162,48 +185,6 @@ function getGrade(percentage, result) {
   if (percentage >= 33) return "E";
   return "F";
 }
-function getAdminStudentsCollection() {
-  const user = auth.currentUser;
-
-  if (!user) {
-    alert("Please login first");
-    return null;
-  }
-
-  return collection(db, "admins", user.uid, "students");
-}
-
-function getAdminStudentDoc(id) {
-  const user = auth.currentUser;
-
-  if (!user) {
-    alert("Please login first");
-    return null;
-  }
-
-  return doc(db, "admins", user.uid, "students", id);
-}
-function getAdminStudentsCollection() {
-  const user = auth.currentUser;
-
-  if (!user) {
-    alert("Please login first");
-    return null;
-  }
-
-  return collection(db, "admins", user.uid, "students");
-}
-
-function getAdminStudentDoc(id) {
-  const user = auth.currentUser;
-
-  if (!user) {
-    alert("Please login first");
-    return null;
-  }
-
-  return doc(db, "admins", user.uid, "students", id);
-}
 
 // ---------------- SAVE / UPDATE STUDENT ----------------
 const studentForm = getEl("studentForm");
@@ -305,20 +286,19 @@ if (studentForm) {
 
     try {
       if (editId) {
-       const studentDocRef = getAdminStudentDoc(editId);
-if (!studentDocRef) return;
+        const studentDocRef = getAdminStudentDoc(editId);
+        if (!studentDocRef) return;
 
-await updateDoc(studentDocRef, studentData);
+        await updateDoc(studentDocRef, studentData);
         alert("Student updated successfully");
       } else {
-       const studentsCollectionRef = getAdminStudentsCollection();
-if (!studentsCollectionRef) return;
+        const studentsCollectionRef = getAdminStudentsCollection();
+        if (!studentsCollectionRef) return;
 
-const duplicateQuery = query(
-  studentsCollectionRef,
-  where("rollNo", "==", rollNo),
-  where("gmail", "==", gmail)
-);
+        const duplicateQuery = query(
+          studentsCollectionRef,
+          where("rollNo", "==", rollNo),
+          where("gmail", "==", gmail)
         );
 
         const duplicateSnapshot = await getDocs(duplicateQuery);
@@ -328,7 +308,7 @@ const duplicateQuery = query(
           return;
         }
 
-       await addDoc(studentsCollectionRef, studentData);
+        await addDoc(studentsCollectionRef, studentData);
         alert("Student added successfully");
       }
 
@@ -350,9 +330,9 @@ window.displayStudents = async function () {
 
   try {
     const studentsCollectionRef = getAdminStudentsCollection();
-if (!studentsCollectionRef) return;
+    if (!studentsCollectionRef) return;
 
-const snapshot = await getDocs(studentsCollectionRef);
+    const snapshot = await getDocs(studentsCollectionRef);
 
     snapshot.forEach((docSnap) => {
       const student = docSnap.data();
@@ -389,8 +369,9 @@ const snapshot = await getDocs(studentsCollectionRef);
 // ---------------- EDIT STUDENT ----------------
 window.editStudent = async function (id) {
   try {
-   const docRef = getAdminStudentDoc(id);
-if (!docRef) return;
+    const docRef = getAdminStudentDoc(id);
+    if (!docRef) return;
+
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
@@ -425,9 +406,9 @@ window.deleteStudent = async function (id) {
 
   try {
     const studentDocRef = getAdminStudentDoc(id);
-if (!studentDocRef) return;
+    if (!studentDocRef) return;
 
-await deleteDoc(studentDocRef);
+    await deleteDoc(studentDocRef);
     alert("Student deleted successfully");
     displayStudents();
   } catch (error) {
