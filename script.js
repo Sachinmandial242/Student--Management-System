@@ -307,7 +307,7 @@ const duplicateQuery = query(
           return;
         }
 
-        await addDoc(collection(db, "students"), studentData);
+       await addDoc(studentsCollectionRef, studentData);
         alert("Student added successfully");
       }
 
@@ -328,7 +328,10 @@ window.displayStudents = async function () {
   tableBody.innerHTML = "";
 
   try {
-    const snapshot = await getDocs(collection(db, "students"));
+    const studentsCollectionRef = getAdminStudentsCollection();
+if (!studentsCollectionRef) return;
+
+const snapshot = await getDocs(studentsCollectionRef);
 
     snapshot.forEach((docSnap) => {
       const student = docSnap.data();
@@ -365,7 +368,8 @@ window.displayStudents = async function () {
 // ---------------- EDIT STUDENT ----------------
 window.editStudent = async function (id) {
   try {
-    const docRef = doc(db, "students", id);
+   const docRef = getAdminStudentDoc(id);
+if (!docRef) return;
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
@@ -399,7 +403,10 @@ window.deleteStudent = async function (id) {
   if (!ok) return;
 
   try {
-    await deleteDoc(doc(db, "students", id));
+    const studentDocRef = getAdminStudentDoc(id);
+if (!studentDocRef) return;
+
+await deleteDoc(studentDocRef);
     alert("Student deleted successfully");
     displayStudents();
   } catch (error) {
