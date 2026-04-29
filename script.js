@@ -16,7 +16,8 @@ import {
   deleteDoc,
   doc,
   updateDoc,
-  getDoc
+  getDoc,
+collectionGroup
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 // ---------------- SUBJECT NAMES ----------------
@@ -437,7 +438,7 @@ window.searchResult = async function () {
 
   try {
     const q = query(
-      collection(db, "students"),
+      collectionGroup(db, "students")
       where("rollNo", "==", rollNo),
       where("gmail", "==", gmail)
     );
