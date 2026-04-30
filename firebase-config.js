@@ -8,7 +8,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyAWmbHbtn1pUMmWFxtGorfV7KUqrsunzcE",
   authDomain: "student-result-system-df097.firebaseapp.com",
   projectId: "student-result-system-df097",
-  storageBucket: "student-result-system-df097.appspot.com", // ⚠️ corrected
+ storageBucket: "student-result-system-df097.appspot.com" // ⚠️ corrected
   messagingSenderId: "917085884960",
   appId: "1:917085884960:web:233e67f50a6811fa142245"
 };
