@@ -7,22 +7,26 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <div class="container small-box">
     <h1>Admin Login</h1>
 
-    <input type="email" id="adminEmail" placeholder="Enter Admin Email" />
-    <input type="password" id="adminPassword" placeholder="Enter Password" />
+    <input type="email" id="adminEmail" placeholder="Enter Admin Email" required />
+    <input type="password" id="adminPassword" placeholder="Enter Password" required />
 
-    <button type="button" onclick="adminLogin()">Login</button>
+    <button onclick="adminLogin()">Login</button>
 
     <p>New admin?</p>
     <a href="admin-signup.html" class="link-btn">Create Admin Account</a>
 
     <hr />
+
     <p>Student ho?</p>
     <a href="index.html" class="link-btn">Go to Student Portal</a>
   </div>
 
- <script type="module" src="script.js"></script>
+  <!-- IMPORTANT: script last me hona chahiye -->
+  <script type="module" src="script.js"></script>
+
 </body>
 </html>
