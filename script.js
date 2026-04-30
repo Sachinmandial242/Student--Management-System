@@ -16,18 +16,15 @@ import {
   deleteDoc,
   doc,
   updateDoc,
-  getDoc,
-  collectionGroup
+  getDoc
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-// ---------------- SUBJECT NAMES ----------------
 const subject1Name = "Maths";
 const subject2Name = "English";
 const subject3Name = "Computer";
 const subject4Name = "Science";
 const subject5Name = "Hindi";
 
-// ---------------- HELPER ----------------
 function getEl(id) {
   return document.getElementById(id);
 }
@@ -52,20 +49,10 @@ function getAdminStudentDoc(id) {
 
 // ---------------- ADMIN SIGNUP ----------------
 window.adminSignup = async function () {
-  const nameEl = getEl("signupName");
-  const emailEl = getEl("signupEmail");
-  const passwordEl = getEl("signupPassword");
-  const confirmPasswordEl = getEl("signupConfirmPassword");
-
-  if (!nameEl || !emailEl || !passwordEl || !confirmPasswordEl) {
-    alert("Signup form not found");
-    return;
-  }
-
-  const name = nameEl.value.trim();
-  const email = emailEl.value.trim();
-  const password = passwordEl.value.trim();
-  const confirmPassword = confirmPasswordEl.value.trim();
+  const name = getEl("signupName").value.trim();
+  const email = getEl("signupEmail").value.trim();
+  const password = getEl("signupPassword").value.trim();
+  const confirmPassword = getEl("signupConfirmPassword").value.trim();
 
   if (!name || !email || !password || !confirmPassword) {
     alert("Please fill all fields");
@@ -93,16 +80,8 @@ window.adminSignup = async function () {
 
 // ---------------- ADMIN LOGIN ----------------
 window.adminLogin = async function () {
-  const emailEl = getEl("adminEmail");
-  const passwordEl = getEl("adminPassword");
-
-  if (!emailEl || !passwordEl) {
-    alert("Login form not found");
-    return;
-  }
-
-  const email = emailEl.value.trim();
-  const password = passwordEl.value.trim();
+  const email = getEl("adminEmail").value.trim();
+  const password = getEl("adminPassword").value.trim();
 
   if (!email || !password) {
     alert("Please enter email and password");
@@ -132,9 +111,7 @@ window.logoutAdmin = async function () {
 // ---------------- CHECK ADMIN LOGIN ----------------
 window.checkAdminLogin = function () {
   onAuthStateChanged(auth, (user) => {
-    const currentPage = window.location.pathname;
-
-    if (currentPage.includes("admin.html")) {
+    if (window.location.pathname.includes("admin.html")) {
       if (!user) {
         alert("Please login first");
         window.location.href = "admin-login.html";
@@ -145,7 +122,7 @@ window.checkAdminLogin = function () {
   });
 };
 
-// ---------------- GRADE / RESULT ----------------
+// ---------------- RESULT LOGIC ----------------
 function getResultStatus(sub1, sub2, sub3, sub4, sub5) {
   if (sub1 < 33 || sub2 < 33 || sub3 < 33 || sub4 < 33 || sub5 < 33) {
     return "Fail";
@@ -172,29 +149,18 @@ if (studentForm) {
     e.preventDefault();
 
     const editIdEl = getEl("editId");
-    const nameEl = getEl("name");
-    const fatherNameEl = getEl("fatherName");
-    const motherNameEl = getEl("motherName");
-    const gmailEl = getEl("gmail");
-    const rollNoEl = getEl("rollNo");
-    const sub1El = getEl("sub1");
-    const sub2El = getEl("sub2");
-    const sub3El = getEl("sub3");
-    const sub4El = getEl("sub4");
-    const sub5El = getEl("sub5");
 
-    const editId = editIdEl.value.trim();
-    const name = nameEl.value.trim();
-    const fatherName = fatherNameEl.value.trim();
-    const motherName = motherNameEl.value.trim();
-    const gmail = gmailEl.value.trim();
-    const rollNo = rollNoEl.value.trim();
+    const name = getEl("name").value.trim();
+    const fatherName = getEl("fatherName").value.trim();
+    const motherName = getEl("motherName").value.trim();
+    const gmail = getEl("gmail").value.trim();
+    const rollNo = getEl("rollNo").value.trim();
 
-    const sub1 = Number(sub1El.value);
-    const sub2 = Number(sub2El.value);
-    const sub3 = Number(sub3El.value);
-    const sub4 = Number(sub4El.value);
-    const sub5 = Number(sub5El.value);
+    const sub1 = Number(getEl("sub1").value);
+    const sub2 = Number(getEl("sub2").value);
+    const sub3 = Number(getEl("sub3").value);
+    const sub4 = Number(getEl("sub4").value);
+    const sub5 = Number(getEl("sub5").value);
 
     if (!name || !fatherName || !motherName || !gmail || !rollNo) {
       alert("Please fill all fields");
@@ -235,10 +201,12 @@ if (studentForm) {
       percentage: percentage.toFixed(2),
       result,
       grade,
-      adminUid: user ? user.uid : ""
+      adminUid: user.uid
     };
 
     try {
+      const editId = editIdEl.value.trim();
+
       if (editId) {
         const studentDocRef = getAdminStudentDoc(editId);
         if (!studentDocRef) return;
@@ -262,7 +230,12 @@ if (studentForm) {
           return;
         }
 
+        // Admin-wise private data
         await addDoc(studentsCollectionRef, studentData);
+
+        // Common result-search data
+        await addDoc(collection(db, "students"), studentData);
+
         alert("Student added successfully");
       }
 
@@ -372,16 +345,8 @@ window.deleteStudent = async function (id) {
 
 // ---------------- STUDENT RESULT SEARCH ----------------
 window.searchResult = async function () {
-  const rollNoEl = getEl("studentRollNo");
-  const gmailEl = getEl("studentGmail");
-
-  if (!rollNoEl || !gmailEl) {
-    alert("Student search form not found");
-    return;
-  }
-
-  const rollNo = rollNoEl.value.trim();
-  const gmail = gmailEl.value.trim();
+  const rollNo = getEl("studentRollNo").value.trim();
+  const gmail = getEl("studentGmail").value.trim();
 
   if (!rollNo || !gmail) {
     alert("Please enter Roll No and Gmail");
@@ -390,7 +355,7 @@ window.searchResult = async function () {
 
   try {
     const q = query(
-      collectionGroup(db, "students"),
+      collection(db, "students"),
       where("rollNo", "==", rollNo),
       where("gmail", "==", gmail)
     );
@@ -520,7 +485,6 @@ window.searchResult = async function () {
   }
 };
 
-// ---------------- RUN PAGE CHECKS ----------------
 document.addEventListener("DOMContentLoaded", () => {
   checkAdminLogin();
 });
