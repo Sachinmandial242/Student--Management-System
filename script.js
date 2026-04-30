@@ -1,4 +1,3 @@
-console.log("SCRIPT LOADED");
 import { db, auth } from "./firebase-config.js";
 
 import {
@@ -18,7 +17,7 @@ import {
   doc,
   updateDoc,
   getDoc,
-collectionGroup
+  collectionGroup
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 // ---------------- SUBJECT NAMES ----------------
@@ -33,26 +32,21 @@ function getEl(id) {
   return document.getElementById(id);
 }
 
-// ---------------- ADMIN DATA PATH HELPERS ----------------
 function getAdminStudentsCollection() {
   const user = auth.currentUser;
-
   if (!user) {
     alert("Please login first");
     return null;
   }
-
   return collection(db, "admins", user.uid, "students");
 }
 
 function getAdminStudentDoc(id) {
   const user = auth.currentUser;
-
   if (!user) {
     alert("Please login first");
     return null;
   }
-
   return doc(db, "admins", user.uid, "students", id);
 }
 
@@ -93,15 +87,7 @@ window.adminSignup = async function () {
     alert("Admin account created successfully");
     window.location.href = "admin-login.html";
   } catch (error) {
-    if (error.code === "auth/email-already-in-use") {
-      alert("This email is already registered. Please login instead.");
-    } else if (error.code === "auth/invalid-email") {
-      alert("Please enter a valid email address.");
-    } else if (error.code === "auth/weak-password") {
-      alert("Password should be at least 6 characters.");
-    } else {
-      alert("Signup failed: " + error.message);
-    }
+    alert("Signup failed: " + error.message);
   }
 };
 
@@ -128,17 +114,7 @@ window.adminLogin = async function () {
     alert("Login successful");
     window.location.href = "admin.html";
   } catch (error) {
-    if (
-      error.code === "auth/invalid-credential" ||
-      error.code === "auth/wrong-password" ||
-      error.code === "auth/user-not-found"
-    ) {
-      alert("Wrong email or password.");
-    } else if (error.code === "auth/invalid-email") {
-      alert("Please enter a valid email address.");
-    } else {
-      alert("Login failed: " + error.message);
-    }
+    alert("Login failed: " + error.message);
   }
 };
 
@@ -207,23 +183,6 @@ if (studentForm) {
     const sub4El = getEl("sub4");
     const sub5El = getEl("sub5");
 
-    if (
-      !editIdEl ||
-      !nameEl ||
-      !fatherNameEl ||
-      !motherNameEl ||
-      !gmailEl ||
-      !rollNoEl ||
-      !sub1El ||
-      !sub2El ||
-      !sub3El ||
-      !sub4El ||
-      !sub5El
-    ) {
-      alert("student form not found properly");
-      return;
-    }
-
     const editId = editIdEl.value.trim();
     const name = nameEl.value.trim();
     const fatherName = fatherNameEl.value.trim();
@@ -237,23 +196,13 @@ if (studentForm) {
     const sub4 = Number(sub4El.value);
     const sub5 = Number(sub5El.value);
 
-    if (
-      !name ||
-      !fatherName ||
-      !motherName ||
-      !gmail ||
-      !rollNo ||
-      isNaN(sub1) ||
-      isNaN(sub2) ||
-      isNaN(sub3) ||
-      isNaN(sub4) ||
-      isNaN(sub5)
-    ) {
-      alert("Please fill all fields properly");
+    if (!name || !fatherName || !motherName || !gmail || !rollNo) {
+      alert("Please fill all fields");
       return;
     }
 
     if (
+      isNaN(sub1) || isNaN(sub2) || isNaN(sub3) || isNaN(sub4) || isNaN(sub5) ||
       sub1 < 0 || sub1 > 100 ||
       sub2 < 0 || sub2 > 100 ||
       sub3 < 0 || sub3 > 100 ||
@@ -269,6 +218,8 @@ if (studentForm) {
     const result = getResultStatus(sub1, sub2, sub3, sub4, sub5);
     const grade = getGrade(percentage, result);
 
+    const user = auth.currentUser;
+
     const studentData = {
       name,
       fatherName,
@@ -283,7 +234,8 @@ if (studentForm) {
       total,
       percentage: percentage.toFixed(2),
       result,
-      grade
+      grade,
+      adminUid: user ? user.uid : ""
     };
 
     try {
@@ -311,7 +263,6 @@ if (studentForm) {
         }
 
         await addDoc(studentsCollectionRef, studentData);
-        await addDoc(collection(db, "students"), studentData);
         alert("Student added successfully");
       }
 
@@ -439,7 +390,7 @@ window.searchResult = async function () {
 
   try {
     const q = query(
-      collectionGroup(db, "students")
+      collectionGroup(db, "students"),
       where("rollNo", "==", rollNo),
       where("gmail", "==", gmail)
     );
@@ -480,10 +431,9 @@ window.searchResult = async function () {
             }
             h1 {
               text-align: center;
-              margin-bottom: 20px;
               color: #2563eb;
             }
-            .info {
+            .info, .summary {
               margin-bottom: 10px;
               font-size: 16px;
             }
@@ -500,10 +450,6 @@ window.searchResult = async function () {
             th {
               background: #2563eb;
               color: white;
-            }
-            .summary {
-              margin-top: 15px;
-              font-size: 16px;
             }
             .pass {
               color: green;
